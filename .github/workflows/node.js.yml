@@ -19,17 +19,26 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./backend/src  
+        working-directory: ./backend/src
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      # Debug nhanh: xác nhận lockfile có trong repo
+      - name: List files
+        run: |
+          pwd
+          ls -la
+          ls -la backend
+          ls -la backend/src
+
+      - name: Use Node.js ${{ matrix.node-version }} (with npm cache)
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
-          cache-dependency-path: backend/src/package-lock.json 
+          cache-dependency-path: backend/src/package-lock.json
 
       - name: Install
         run: npm ci
