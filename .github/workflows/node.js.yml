@@ -32,7 +32,12 @@ jobs:
 
       - name: Build (if present)
         run: npm run build --if-present
-
+        
+      - name: Show npm scripts
+        run: npm run
+        
       - name: Test (only if there are *.spec.ts)
         if: ${{ hashFiles('**/*.spec.ts') != '' }}
         run: npm test -- --runInBand
+        
+      
