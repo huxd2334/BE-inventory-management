@@ -17,28 +17,15 @@ jobs:
       matrix:
         node-version: [18.x, 20.x, 22.x]
 
-    defaults:
-      run:
-        working-directory: ./backend/src
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # Debug nhanh: xác nhận lockfile có trong repo
-      - name: List files
-        run: |
-          pwd
-          ls -la
-          ls -la backend
-          ls -la backend/src
-
-      - name: Use Node.js ${{ matrix.node-version }} (with npm cache)
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
-          cache-dependency-path: backend/src/package-lock.json
+          cache-dependency-path: package-lock.json   # vì lockfile nằm ở root
 
       - name: Install
         run: npm ci
