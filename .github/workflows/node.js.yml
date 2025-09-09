@@ -35,6 +35,9 @@ jobs:
         
       - name: Show npm scripts
         run: npm run
+
+      - name: Test 
+        run: npm test -- --runInBand
         
     
         
